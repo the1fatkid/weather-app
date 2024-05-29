@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather</title>
+    <link rel="icon" href="images/mist.png">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <img class="cloud one" src="images/cloud.png" alt="">
+    <img class="cloud two" src="images/cloud.png" alt="">
+    
+    <div class="card">
+        <div class="search">
+            <input type="text" placeholder="Enter city name">
+            <button><i class="fa-solid fa-magnifying-glass"></i></button>   
+        </div>
+        <div class="error">
+            <p>Invalid city name!</p>
+          </div>
+
+        <div class="content">
+            <div class="location"> 
+                <h2 class="city">San Francisco</h2>
+                <!-- for date and time -->
+                <p class="country">US</p>
+            </div>
+        
+            <div class="main">
+                <div class="weather-info">
+                    <div class="weatherIcon"><i class="fa-solid fa-cloud"></i></div>
+                    <div class="weather">Clouds</div>
+                </div>
+                <div class="temp">24°</div>
+            </div>
+    
+            <img class="bg" src="images/cityScape.png" alt="">
+    
+            <div class="footer">
+                <h3 class="footerHeader">Weather now</h3>
+                <div class="grid">
+                    <div class="item min-temp">
+                        <div class="icon"><i class="fa-solid fa-temperature-half"></i></div>                  
+                        <div class="info">
+                            <p>Min temp</p>
+                            <h3 class="minTemp">20°</h3>
+                        </div>
+                    </div>
+    
+                    <div class="item max-temp">
+                        <div class="icon"><i class="fa-solid fa-temperature-half"></i></div>
+                        <div class="info">
+                            <p>Max temp</p>
+                            <h3 class="maxTemp">32°</h3>
+                        </div>
+                    </div>
+    
+                    <div class="item wind-speed">
+                        <div class="icon"><i class="fa-solid fa-wind"></i></div>                    
+                        <div class="info">
+                            <p>Wind speed</p>
+                            <h3 class="wind">8 m/s</h3>
+                        </div>
+                    </div>
+    
+                    <div class="item humidity">
+                        <div class="icon"><i class="fa-solid fa-droplet"></i></div>
+                        <div class="info">
+                            <p>Humidity</p>
+                            <h3 class="humidityPercent">72%</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

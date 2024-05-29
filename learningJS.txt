@@ -1,0 +1,359 @@
+//                (change the file extension to .js to read better)
+
+//                      ------Setting up API------
+
+// Step 1: Go to "openweathermap.org" to configure API
+// Step 2: Sign in if not done already
+// Step 3: Go to 'My API Keys' and copy the API Key
+// Step 4: API(Nav) -> Current Weather Data -> API Doc -> Built-in API request by city name
+// Step 5: Copy the API call (https://api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key})
+
+const apiKey = "2dbe7d1389d21fe1ea01d61fbb83a623";
+const apiUrl =
+  "https://api.openweathermap.org/data/2.5/weather?units=metric&q=mumbai";
+
+
+
+
+//              ------Adding an Async function checkweather()------
+
+const apiKey = "2dbe7d1389d21fe1ea01d61fbb83a623";
+const apiUrl =
+  "https://api.openweathermap.org/data/2.5/weather?units=metric&q=mumbai";
+
+async function checkWeather(){
+    const response = await fetch(apiUrl + `&appid=${apiKey}`);
+    var data = await response.json();
+
+    console.log(data);
+}
+
+checkWeather();
+
+
+
+
+//      ------Printing the data fetched from the API in HTML elements------
+
+const apiKey = "2dbe7d1389d21fe1ea01d61fbb83a623";
+const apiUrl =
+  "https://api.openweathermap.org/data/2.5/weather?units=metric&q=mumbai";
+
+async function checkWeather(){
+    const response = await fetch(apiUrl + `&appid=${apiKey}`);
+    var data = await response.json();
+
+    console.log(data);
+
+    // city name
+    document.querySelector(".city").innerHTML = data.name;
+    // country
+    document.querySelector(".country").innerHTML = data.sys.country;
+    // weather
+    document.querySelector(".weather").innerHTML=data.weather[0].main;
+    // temp
+    document.querySelector(".temp").innerHTML = Math.round(data.main.temp) + "°";
+    // min temp
+    document.querySelector(".minTemp").innerHTML = data.main.temp_min + "°";
+    // max temp
+    document.querySelector(".maxTemp").innerHTML = data.main.temp_max + "°";
+    // wind speed
+    document.querySelector(".wind").innerHTML = data.wind.speed + " Km/h";
+    // humidity
+    document.querySelector(".humidityPercent").innerHTML = data.main.humidity + "%";
+}
+
+checkWeather();
+
+
+
+
+// ------Making the <i> icon change based on the weather i.e.(Clear, Clouds, Rain, Snow, Mist, Haze)
+
+// Wrong Approach -- Why??
+
+if (data.weather[0].main == "Clouds") {
+    document.querySelector(".weatherIcon").innerHTML = "<i class='fa-solid fa-cloud'>";
+}
+
+// Step 1: Make a variable to reference the weatherIcon class
+const weatherIconDiv = document.querySelector(".weatherIcon");
+
+// **Note: You can aslo skip creating the wetherIconDiv var and replace it's occurences with "document.querySelector(".weatherIcon")"
+
+// Step 2: Make another var called iconClass to save the class of the desired icon
+let iconClass;
+
+// Step 3: Write the entire if-else-if ladder
+if (data.weather[0].main == "Clouds") {
+    iconClass = "fa-cloud";
+  } else if (data.weather[0].main == "Clear") {
+    iconClass = "fa-sun";
+  } else if (data.weather[0].main == "Mist" || data.weather[0].main =="Haze") {
+    iconClass = "fa-smog";
+  } else if (data.weather[0].main == "Drizzle") {
+    iconClass = "fa-cloud-rain";
+  } else if (data.weather[0].main == "Snow") {
+    iconClass = "fa-snowflake";
+  } else if (data.weather[0].main == "Rain") {
+    iconClass = "fa-cloud-showers-heavy";
+  }
+
+// Step 4: Create a var iconElement and assign an <i> element to it. Append the class 'iconClass' to the var
+const iconElement = document.createElement("i");
+iconElement.classList.add("fa-solid", iconClass);
+
+// Step 5: Inserting the newly created <i> element inside the element with class .weatherIcon 
+weatherIconDiv.appendChild(iconElement);
+
+
+
+
+//                          ------Final code till now------
+
+const apiKey = "2dbe7d1389d21fe1ea01d61fbb83a623";
+const apiUrl =
+  "https://api.openweathermap.org/data/2.5/weather?units=metric&q=mumbai";
+
+const weatherIconDiv = document.querySelector(".weatherIcon");
+
+//The below line works only in the beginning. The fucntion checkWeather() works everytime the search button is clicked. So this line of code should be inside the fucntion.
+// weatherIconDiv.innerHTML = "";
+
+
+async function checkWeather(){
+    const response = await fetch(apiUrl + `&appid=${apiKey}`);
+    var data = await response.json();
+
+    console.log(data);
+
+    // city name
+    document.querySelector(".city").innerHTML = data.name;
+    // country
+    document.querySelector(".country").innerHTML = data.sys.country;
+    // weather
+    document.querySelector(".weather").innerHTML=data.weather[0].main;
+    // temp
+    document.querySelector(".temp").innerHTML = Math.round(data.main.temp) + "°";
+    // min temp
+    document.querySelector(".minTemp").innerHTML = data.main.temp_min + "°";
+    // max temp
+    document.querySelector(".maxTemp").innerHTML = data.main.temp_max + "°";
+    // wind speed
+    document.querySelector(".wind").innerHTML = data.wind.speed + " Km/h";
+    // humidity
+    document.querySelector(".humidityPercent").innerHTML = data.main.humidity + "%";
+
+    let iconClass;
+
+    if (data.weather[0].main == "Clouds") {
+        iconClass = "fa-cloud";
+      } else if (data.weather[0].main == "Clear") {
+        iconClass = "fa-sun";
+      } else if (data.weather[0].main == "Mist" || data.weather[0].main =="Haze") {
+        iconClass = "fa-smog";
+      } else if (data.weather[0].main == "Drizzle") {
+        iconClass = "fa-cloud-rain";
+      } else if (data.weather[0].main == "Snow") {
+        iconClass = "fa-snowflake";
+      } else if (data.weather[0].main == "Rain") {
+        iconClass = "fa-cloud-showers-heavy";
+      }
+
+    const iconElement = document.createElement("i");
+    iconElement.classList.add("fa-solid", iconClass);  
+
+    // Clearing the div before appending new <i> element
+    weatherIconDiv.innerHTML = "";
+    weatherIconDiv.appendChild(iconElement);
+}
+
+checkWeather();
+
+
+
+
+//                  ------Adding an event listener to the button------
+
+// Step 1: Remove the hardcoded city name form apiUrl
+const apiUrl =
+  "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
+
+// Step 2: Add the city (as a variable) in the URl inside the checkWeather function, when fetching for the data
+const response = await fetch(apiUrl + city +`&appid=${apiKey}`); 
+
+// Step 3: The fucntion checkWeather() needs to take 'city' as a parameter
+async function checkWeather(city){
+    //Code
+}
+
+// Step 4: Adding an event listener to the button and taking teh city from the search bar and giving it as parameter to the function
+
+const searchBox = document.querySelector(".search input");
+const searchBtn = document.querySelector(".search button");
+
+searchBtn.addEventListener("click", () => {
+    checkWeather(searchBox.value);
+  });
+
+
+
+  
+//                          ------Final code till now------  
+
+const apiKey = "2dbe7d1389d21fe1ea01d61fbb83a623";
+const apiUrl =
+  "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
+
+const weatherIconDiv = document.querySelector(".weatherIcon");
+
+//The below line works only in the beginning. The fucntion checkWeather() works everytime the search button is clicked. So this line of code should be inside the fucntion.
+// weatherIconDiv.innerHTML = "";
+
+
+const searchBox = document.querySelector(".search input");
+const searchBtn = document.querySelector(".search button");
+
+
+async function checkWeather(city){
+    const response = await fetch(apiUrl + city + `&appid=${apiKey}`);
+    var data = await response.json();
+
+    console.log(data);
+
+    // city name
+    document.querySelector(".city").innerHTML = data.name;
+    // country
+    document.querySelector(".country").innerHTML = data.sys.country;
+    // weather
+    document.querySelector(".weather").innerHTML=data.weather[0].main;
+    // temp
+    document.querySelector(".temp").innerHTML = Math.round(data.main.temp) + "°";
+    // min temp
+    document.querySelector(".minTemp").innerHTML = data.main.temp_min + "°";
+    // max temp
+    document.querySelector(".maxTemp").innerHTML = data.main.temp_max + "°";
+    // wind speed
+    document.querySelector(".wind").innerHTML = data.wind.speed + " Km/h";
+    // humidity
+    document.querySelector(".humidityPercent").innerHTML = data.main.humidity + "%";
+
+    let iconClass;
+
+    if (data.weather[0].main == "Clouds") {
+        iconClass = "fa-cloud";
+      } else if (data.weather[0].main == "Clear") {
+        iconClass = "fa-sun";
+      } else if (data.weather[0].main == "Mist" || data.weather[0].main =="Haze") {
+        iconClass = "fa-smog";
+      } else if (data.weather[0].main == "Drizzle") {
+        iconClass = "fa-cloud-rain";
+      } else if (data.weather[0].main == "Snow") {
+        iconClass = "fa-snowflake";
+      } else if (data.weather[0].main == "Rain") {
+        iconClass = "fa-cloud-showers-heavy";
+      }
+
+    const iconElement = document.createElement("i");
+    iconElement.classList.add("fa-solid", iconClass);  
+
+    // Clearing the div before appending new <i> element
+    weatherIconDiv.innerHTML = "";
+    weatherIconDiv.appendChild(iconElement);
+}
+
+searchBtn.addEventListener("click", () => {
+    checkWeather(searchBox.value);
+  });
+
+
+
+  
+//          ------Making the '.content' and '.error' appear and disappear------   
+
+/* 1) Both .error and .content classes wil not be visible at first
+
+    In CSS, add 'display:none' property to both of them
+
+    2) If the API response is '404', display the .error class (and hide .content class --WHYY)
+
+    3) If not, display the .content class (and hide .error class --WHYY)
+*/
+
+
+//                          ------Final Code------  
+
+const apiKey = "2dbe7d1389d21fe1ea01d61fbb83a623";
+const apiUrl =
+  "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
+
+const weatherIconDiv = document.querySelector(".weatherIcon");
+
+//The below line works only in the beginning. The fucntion checkWeather() works everytime the search button is clicked. So this line of code should be inside the fucntion.
+// weatherIconDiv.innerHTML = "";
+
+
+const searchBox = document.querySelector(".search input");
+const searchBtn = document.querySelector(".search button");
+
+
+async function checkWeather(city){
+    const response = await fetch(apiUrl + city + `&appid=${apiKey}`);
+    var data = await response.json();
+    if(response==404){
+        document.querySelector(".error").style.display = "block";
+        document.querySelector(".content").style.display = "none";
+    }
+    else{
+        console.log(data);
+
+    // city name
+    document.querySelector(".city").innerHTML = data.name;
+    // country
+    document.querySelector(".country").innerHTML = data.sys.country;
+    // weather
+    document.querySelector(".weather").innerHTML=data.weather[0].main;
+    // temp
+    document.querySelector(".temp").innerHTML = Math.round(data.main.temp) + "°";
+    // min temp
+    document.querySelector(".minTemp").innerHTML = data.main.temp_min + "°";
+    // max temp
+    document.querySelector(".maxTemp").innerHTML = data.main.temp_max + "°";
+    // wind speed
+    document.querySelector(".wind").innerHTML = data.wind.speed + " Km/h";
+    // humidity
+    document.querySelector(".humidityPercent").innerHTML = data.main.humidity + "%";
+
+    let iconClass;
+
+    if (data.weather[0].main == "Clouds") {
+        iconClass = "fa-cloud";
+      } else if (data.weather[0].main == "Clear") {
+        iconClass = "fa-sun";
+      } else if (data.weather[0].main == "Mist" || data.weather[0].main =="Haze") {
+        iconClass = "fa-smog";
+      } else if (data.weather[0].main == "Drizzle") {
+        iconClass = "fa-cloud-rain";
+      } else if (data.weather[0].main == "Snow") {
+        iconClass = "fa-snowflake";
+      } else if (data.weather[0].main == "Rain") {
+        iconClass = "fa-cloud-showers-heavy";
+      }
+
+    const iconElement = document.createElement("i");
+    iconElement.classList.add("fa-solid", iconClass);  
+
+    // Clearing the div before appending new <i> element
+    weatherIconDiv.innerHTML = "";
+    weatherIconDiv.appendChild(iconElement);
+
+    document.querySelector(".content").style.display = "block";
+    document.querySelector(".error").style.display = "none";
+    }
+    
+}
+
+searchBtn.addEventListener("click", () => {
+    checkWeather(searchBox.value);
+  });
+

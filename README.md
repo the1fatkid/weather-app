@@ -12,7 +12,7 @@ This is a simple and fully responsive web application that uses the OpenWeatherM
 
 ## Demo
 
-Check out the live demo of the app [here](#https://the1fatkid.github.io/weather-app/).
+Check out the live demo of the app [here](https://the1fatkid.github.io/weather-app/).
 
 ## Technologies Used
 

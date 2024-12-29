@@ -59,6 +59,7 @@ async function checkWeather(city) {
     document.querySelector(".error").style.display = "none";
   }
 }
-searchForm.addEventListener("submit", () => {
+searchForm.addEventListener("submit", (e) => {
+  e.preventDefault();
   checkWeather(searchBox.value);
 });

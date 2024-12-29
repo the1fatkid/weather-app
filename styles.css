@@ -28,7 +28,7 @@ body {
 
 /* card */
 .card {
-  width: 80%;
+  width: 100%;
   max-width: 400px;
   margin-left: auto;
   margin-right: auto;
